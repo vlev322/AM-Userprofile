@@ -1,9 +1,20 @@
 import React, { Component, Fragment } from 'react';
+import axios from 'axios'
 
 import styles from './generalParameters.sass'
 
 import Feild from './feild/feild'
 import Title from './title/title'
+
+const dates = (userId) => {
+	axios.get(`http://192.168.10.3:3000/api/v1/user/${userId}`)
+  .then(function (response) {
+    console.log('Bio user: ', response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  })
+}
 
 class GeneralParameters extends Component {
   constructor(props) {
@@ -24,6 +35,10 @@ class GeneralParameters extends Component {
     event.preventDefault();
  }
 
+componentDidMount(){
+	dates('5c07a52ce1b46502d89b3a00');
+}
+
  handleChange(event) {
   this.setState({
       [event.target.name]: event.target.value
@@ -39,7 +54,7 @@ class GeneralParameters extends Component {
         <div className={styles.personal}>
           <Title title='Personal Information' />
           <div className={styles.names}>
-            <img src='https://randomuser.me/api/portraits/men/50.jpg'></img>
+            <img src='https://randomuser.me/api/portraits/lego/0.jpg'></img>
             <form onSubmit={this.handleSubmit}>
             <Feild
               id="username"
@@ -48,7 +63,7 @@ class GeneralParameters extends Component {
               placeholder="Enter username"
               name="username"
               value={this.state.username}
-              onChange={this.handleChange}
+							onChange={this.handleChange}
             />
             <Feild
               id="firstname"
@@ -131,7 +146,6 @@ class GeneralParameters extends Component {
                 <div></div>
               </div>              
             </div>
-
           </div>  
         </div>
 
